@@ -19,9 +19,6 @@
     }
 
     if(isset($_POST['editTask'])){
-        echo "aaa";
-        echo $_POST['content'];
-        echo $_POST['id'];
         $sql="UPDATE `todo` SET `content`='".$_POST['content']."' WHERE `id` = '".$_POST['editTask']."'";
         filterTable($sql);
         echo "<script language='javascript'>";
