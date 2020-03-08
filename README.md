@@ -1,28 +1,34 @@
 ![](https://github.com/p17johnny/NUTC_TEACHWEB2020/raw/master//intro.png)
 
 
-# 2020 中科資管Mysql教學
+# 2020 台中科技大學 資管四甲 MySQL,PHP淺教學
 
 
 Author: 陳繹仁
 
-範例連結: https://rensv.synology.me
+範例連結: https://rensv.synology.me/nutc_teachweb2020/
 
 ---
 ## 目錄
 
-1-1 : [SQL Server Connection](#Connection)<br>
-1-2 : [SQL 通用快速呼叫方式](#Function)<br>
-1-3 : [SQL Create - 新增](#Create)<br>
-1-4 : [SQL Read - 讀取](#Read)<br>
-1-5 : [SQL Update - 更新](#Update)<br>
-1-6 : [SQL Delete - 刪除](#Delete)<br>
-1-7 : [表單送出](#FormPost)<br>
-1-8 : [取得連結中的值](#Get)<br>
+ - 第一節
+
+    1-1 : [SQL Server Connection](#Connection)<br>
+    1-2 : [SQL 通用快速呼叫方式](#Function)<br>
+    1-3 : [SQL Create - 新增](#Create)<br>
+    1-4 : [SQL Read - 讀取](#Read)<br>
+    1-5 : [SQL Update - 更新](#Update)<br>
+    1-6 : [SQL Delete - 刪除](#Delete)<br>
+    1-7 : [表單送出](#FormPost)<br>
+    1-8 : [取得連結中的值](#Get)<br>
+
+ - 第二節
+    
+    尚未完成
 
 <div id="Connection"></div>
 
-## - SQL Server Connection
+## - SQL Server Connection 測試server是否可連線
 ``` php
 <?php 
 	
@@ -49,13 +55,20 @@ Author: 陳繹仁
 ## - Function 快速執行
 
 ``` php
-function filterTable($query)
-{
-    $connect = mysqli_connect("localhost", "帳號", "密碼", "資料庫");
-    mysqli_query($connect, "SET NAMES 'utf8'");
-    $filter_Result = mysqli_query($connect, $query);
-    return $filter_Result;
-}
+    function filterTable($query)
+    {
+        $dbType   = 'MySQL';
+        $host     = 'localhost';
+        $dbName   = '資料庫名稱';
+        $userName = '帳號';
+        $pwd      = '密碼';
+        
+        $dbh = mysqli_connect($host, $userName, $pwd, $dbName) or die("Error " . mysqli_error($dbh));
+        //$dbh = mysqli_connect($host, $userName, $pwd, $dbName);
+        mysqli_query($dbh, "SET NAMES 'utf8'");
+        $filter_Result = mysqli_query($dbh, $query);
+        return $filter_Result;
+    }
 ```
 
 ---
@@ -63,7 +76,10 @@ function filterTable($query)
 
 ## - SQL Create 新增
 
-```
+```php
+//將form post過來的值新增至todo資料表
+    $sql="INSERT INTO `todo`(`content`) VALUES ('".$_POST['content']."')";
+    filterTable($sql);
 
 ```
 
@@ -75,27 +91,26 @@ function filterTable($query)
 
  - 多行讀取
 ``` php
-$query = "SELECT * FROM `classtable`" ;
-                        
-$result = filterTable($query);
+    $sql = "SELECT * FROM `todo`" ;
+                            
+    $result = filterTable($sql);
 
-while($row = mysqli_fetch_array($result)):
-    echo $row['欄位名'];
-endwhile;
+    while($row = mysqli_fetch_array($result)):
+        //執行你要做的事情
+        echo $row['欄位名']
+    endwhile;
 ```
 
  - 單列讀取
 
 ``` php
-$query = "SELECT * FROM `classtable`" ;
-                        
-$result = filterTable($query);
+    $query = "SELECT * FROM `todo`" ;
+                            
+    $result = filterTable($query);
 
-$row = mysqli_fetch_array($result);
+    $row = mysqli_fetch_array($result);
 
-echo $row['欄位名'];
-
-endwhile;
+    echo $row['欄位名'];
 ```
 
 
@@ -105,8 +120,9 @@ endwhile;
 ## - SQL Update 更新
 
 ``` php
-    $sql = "UPDATE `classtable` set `name` = '".$_POST['name']."', `gender` = '".$_POST['gender']."' where `id` ='" . $target . "'";
-    $result = filterTable($sql);
+//將POST過來的content覆蓋於id為editTask的值
+    $sql="UPDATE `todo` SET `content`='".$_POST['content']."' WHERE `id` = '".$_POST['editTask']."'";
+    filterTable($sql);
 ```
 
 ---
@@ -115,8 +131,9 @@ endwhile;
 ## - SQL Delete 刪除
 
 ``` php
-    $sqli = "DELETE FROM `classtable` WHERE `id` ='" . $target . "'";
-    $result = filterTable($sqli);
+//將連結上的deleteTask擷取 並刪除資料庫中與此ID相符的資料列
+    $sql="DELETE FROM `todo` WHERE `id` =  '".$_GET['deleteTask']."'";
+    filterTable($sql);
 ```
 ---
 <div id="FormPost"></div>
@@ -133,10 +150,10 @@ endwhile;
 
 ``` php
     $schoolid= $_POST['username']; // 對應 input 的值 name="username"
-	$passtr= $_POST['password']; // 對應 input 的值 name="password"
-	
-	$query = "SELECT * FROM `classtable` Where `id` ='" . $schoolid . "' AND `password` = '".$passstr."'";
-	$result = filterTable($query);
+    $passtr= $_POST['password']; // 對應 input 的值 name="password"
+
+    $query = "SELECT * FROM `classtable` Where `id` ='" . $schoolid . "' AND `password` = '".$passstr."'";
+    $result = filterTable($query);
     $row = mysqli_fetch_array($result);  
     // $row 輸出的會是找到的資料 若帳號或密碼錯誤則為 null
 ```
