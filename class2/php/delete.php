@@ -3,14 +3,6 @@ session_start();
 
 include "php/db_connection.php";
 $userid = $_SESSION['username'];
-function filterTable($query)
-{
-    $connect = mysqli_connect("localhost", "user", "abc123", "smart");
-    mysqli_query($connect, "SET NAMES 'utf8'");
-    $filter_Result = mysqli_query($connect, $query);
-    return $filter_Result;
-}
-
 $target = $_GET['name'];
 
 

@@ -2,16 +2,6 @@
 
 include "db_connection.php";
 session_start();
-
-function filterTable($query)
-{
-    $connect = mysqli_connect("localhost", "user", "abc123", "smart");
-    mysqli_query($connect, "SET NAMES 'utf8'");
-    $filter_Result = mysqli_query($connect, $query);
-    return $filter_Result;
-}
-
-
 	
 	$schoolid= $_POST['username'];
 	$passtr= $_POST['password'];

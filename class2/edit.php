@@ -2,13 +2,6 @@
 include "php/db_connection.php";
 session_start();
 $targetid = $_GET['edit'];
-function filterTable($query)
-{
-    $connect = mysqli_connect("localhost", "user", "abc123", "smart");
-    mysqli_query($connect, "SET NAMES 'utf8'");
-    $filter_Result = mysqli_query($connect, $query);
-    return $filter_Result;
-}
 
 $query = "SELECT * FROM `classtable` WHERE `id` ='".$targetid."'";
 $result = filterTable($query);

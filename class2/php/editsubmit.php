@@ -2,13 +2,6 @@
 session_start();
 
 include "db_connection.php";
-function filterTable($query)
-{
-    $connect = mysqli_connect("localhost", "user", "abc123", "smart");
-    mysqli_query($connect, "SET NAMES 'utf8'");
-    $filter_Result = mysqli_query($connect, $query);
-    return $filter_Result;
-}
 
 $target = $_POST['id'];
 
