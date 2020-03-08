@@ -6,7 +6,14 @@
 
 Author: 陳繹仁
 
-範例連結: https://rensv.synology.me/nutc_teachweb2020/
+ - 第一節範例連結
+   - https://rensv.synology.me/nutc_teachweb2020/class1/
+
+ - 第二節範例連結
+ 
+   - https://rensv.synology.me/nutc_teachweb2020/class2/
+
+   - `範例登入帳號：1110330140 密碼：abc123`
 
 ---
 ## 目錄
