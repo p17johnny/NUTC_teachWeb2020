@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include "php/db_connection.php";
+include "db_connection.php";
 $userid = $_SESSION['username'];
 $target = $_GET['name'];
 
