@@ -4,8 +4,8 @@
 		$dbType   = 'MySQL';
 		$host     = 'localhost';
 		$dbName   = 'smart';
-		$userName = 'user';
-		$pwd      = 'abc123';
+		$userName = 'root';
+		$pwd      = '';
 		
 		$dbh = mysqli_connect($host, $userName, $pwd, $dbName) or die("Error " . mysqli_error($dbh));
 		//$dbh = mysqli_connect($host, $userName, $pwd, $dbName);
