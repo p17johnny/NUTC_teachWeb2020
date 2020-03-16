@@ -31,7 +31,7 @@ Author: 陳繹仁
 
  - 第二節
     
-    尚未完成
+    繹仁 : 我好懶 之後再做
 
 <div id="Connection"></div>
 
